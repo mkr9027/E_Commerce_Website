@@ -87,10 +87,36 @@
 <script>
   document.getElementById('checkout-form').addEventListener('submit', function (e) {
     e.preventDefault();
-    alert('✅ Order placed successfully!');
-    // You can clear cart or redirect here if needed
+
+    const formData = {
+      fullname: document.getElementById('fullname').value,
+      email: document.getElementById('email').value,
+      address: document.getElementById('address').value,
+      cardName: document.getElementById('cardName').value,
+      expiry: document.getElementById('expiry').value
+    };
+
+    fetch('http://localhost:3000/checkout', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formData)
+    })
+    .then(res => res.text())
+    .then(response => {
+      if (response === 'success') {
+        alert('✅ Order placed and saved to database!');
+        document.getElementById('checkout-form').reset();
+      } else {
+        alert('❌ Something went wrong.');
+      }
+    })
+    .catch(error => {
+      console.error('Fetch error:', error);
+      alert('⚠️ Server error.');
+    });
   });
 </script>
+
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
