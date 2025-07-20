@@ -1,0 +1,13 @@
+CREATE DATABASE dstore;
+
+USE dstore;
+
+CREATE TABLE orders (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  fullname VARCHAR(100),
+  email VARCHAR(100),
+  address VARCHAR(255),
+  card_name VARCHAR(100),
+  expiry VARCHAR(10),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
